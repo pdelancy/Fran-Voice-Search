@@ -25,6 +25,7 @@ let timeAvailable = (places, dt) => {
     });
 };
 exports.Frans = function Frans (req, res) {
+    console.log("in Frans");
     let response;
     let needs = req.body.result.parameters;
     let type;
@@ -67,6 +68,7 @@ exports.Frans = function Frans (req, res) {
                 }, null);
             })
             .then(resp => {
+                console.log(resp);
                 res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
                 res.send(JSON.stringify({ "speech": resp, "displayText": resp}));
             })
