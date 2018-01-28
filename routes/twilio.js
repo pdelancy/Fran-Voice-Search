@@ -7,7 +7,28 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 var apiai = require('apiai-promise');
 var app = apiai(process.env.API_AI_TOKEN);
 
+router.post('/receiveMessage', (req, res)=>{
+  console.log('inside receive Message');
+  console.log('req', req.body.Body);
+  const response = new VoiceResponse();
+  let input = req.body.Body;
+  app.textRequest(input, {
+    sessionId: req.body.From
+  }).then((response2)=>{
+    let newResponse = response2.result.fulfillment.speech;
+    console.log(newResponse);
+    console.log(response);
+    response.sms(newResponse);
+    res.writeHead(200, { 'Content-Type': 'text/xml' });
+    res.end(response.toString());
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
+})
+
 router.post('/receiveCall', (req, res) => {
+  console.log(req);
   const response = new VoiceResponse();
   let completed = false;
   let newResponse;
