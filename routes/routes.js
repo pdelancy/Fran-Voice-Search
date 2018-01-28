@@ -34,6 +34,29 @@ router.post('/addLocation', function(req, res) {
   });
 });
 
+//Expects an array of times with start (hours:minutes), end (hours:minutes), and days ['monday', 'tuesday', ...]
+//Saves the times in an array of days, each with an array of times
+
+router.post('/locationSchedule', (req, res) => {
+  var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  Place.findOne({id: req.body.LocationId}, (err, loc) => {
+    req.body.times.map((time) => {
+      time.days.map((day) => {
+        if(!loc.schedule[days.indexOf(day)]) loc.schedule[days.indexOf(day)] = [];
+        var start = time.start.split(":");
+        var end = time.end.split(":")
+        loc.schedule[days.indexOf(day)].push({
+          start: {h: start[0], minutes: start[1]},
+          end: {h: end[0], minutes: end[1]}
+        })
+      })
+    })
+    loc.save((err, updatedLocation) => {
+      err ? res.send({error: err}) : res.send(updatedLocation);
+    })
+  })
+})
+
 router.get('/response', (req, res) => {
   console.log(req.body);
 })
