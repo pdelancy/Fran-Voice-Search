@@ -8,8 +8,6 @@ var Place = models.Place;
 
 
 router.post('/addLocation', function(req, res) {
-  console.log('in addLocation');
-  console.log(Place);
   var adding = new models.Place({
     // Note: Calling the email form field 'username' here is intentional,
     //    passport is expecting a form field specifically named 'username'.
