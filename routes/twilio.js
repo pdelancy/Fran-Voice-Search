@@ -52,11 +52,14 @@ router.post('/receiveCall', (req, res) => {
       if(!completed){
         const gather = response.gather({
           input: 'speech dtmf',
-          timeout: 3
+          timeout: 5
           // action: '/readText',
           // method: 'GET'
           // numDigits: 1,
         });
+        return;
+      } else {
+        // response.dial('614-531-7501');
         return;
       }
     }).then(() => {
