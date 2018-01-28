@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var connect = process.env.MONGODB_URI;
 
-var REQUIRED_ENV = "SECRET MONGODB_URI".split(" ");
+var REQUIRED_ENV = "MONGODB_URI".split(" ");
 
 REQUIRED_ENV.forEach(function(el) {
   if (!process.env[el]){
@@ -18,6 +18,7 @@ REQUIRED_ENV.forEach(function(el) {
 mongoose.connect(connect);
 
 var models = require('./models');
+require('./connections/twilioInput');
 
 var routes = require('./routes/routes');
 var app = express();
