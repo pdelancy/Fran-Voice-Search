@@ -5,21 +5,22 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var connect = process.env.MONGODB_URI;
 
-var REQUIRED_ENV = "SECRET MONGODB_URI".split(" ");
+// var REQUIRED_ENV = "SECRET MONGODB_URI".split(" ");
+//
+// REQUIRED_ENV.forEach(function(el) {
+//   if (!process.env[el]){
+//     console.error("Missing required env var " + el);
+//     process.exit(1);
+//   }
+// });
+//
+//
+// mongoose.connect(connect);
 
-REQUIRED_ENV.forEach(function(el) {
-  if (!process.env[el]){
-    console.error("Missing required env var " + el);
-    process.exit(1);
-  }
-});
-
-
-mongoose.connect(connect);
-
-var models = require('./models');
+// var models = require('./models');
 
 var routes = require('./routes/routes');
+var twilio = require('./routes/twilio');
 var app = express();
 
 app.use(logger('tiny'));
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/twilio', twilio);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,7 +45,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
       error: err
     });
@@ -54,7 +56,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.json({
     message: err.message,
     error: {}
   });
