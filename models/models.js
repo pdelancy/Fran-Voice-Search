@@ -22,8 +22,6 @@ var placeSchema = mongoose.Schema({
   phoneNumber: {
     type: String
   }
-
-  /* Add other fields here */
 });
 
 
