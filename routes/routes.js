@@ -9,5 +9,9 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/response', (req, res) => {
+  console.log(req.body);
+})
+
 
 module.exports = router;
