@@ -34,8 +34,9 @@ router.post('/addLocation', function(req, res) {
   });
 });
 
-//Expects an array of times with start (hours:minutes), end (hours:minutes), and days ['monday', 'tuesday', ...]
-//Saves the times in an array of days, each with an array of times
+// Expects an array of times with start (hours:minutes), end (hours:minutes),
+// and days ['monday', 'tuesday', ...]. Hours should be in 24hr time. Saves the
+// times in an array of days, each with an array of times
 
 router.post('/locationSchedule', (req, res) => {
   var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
