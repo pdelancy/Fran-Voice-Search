@@ -22,6 +22,4 @@ var twilioInput = function twilioInput(input, sessionId) {
     request.end();
 };
 
-twilioInput("Hiiiiiiiiiii!!!!", "10010");
-
-console.log(responseNow);
+// twilioInput("Hiiiiiiiiiii!!!!", "10010");
