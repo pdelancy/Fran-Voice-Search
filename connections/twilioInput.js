@@ -21,6 +21,6 @@ var twilioInput = function twilioInput(input, sessionId, object) {
     request.end();
 };
 
-twilioInput("where can I find food?", "121212451212", returnConversation);
-// twilioInput("today", "121212451212", returnConversation);
-// twilioInput("civic center", "121212451212", returnConversation);
+twilioInput("where do I get food?", "121212451212", returnConversation);
+twilioInput("today", "121212451212", returnConversation);
+twilioInput("civic center", "121212451212", returnConversation);
