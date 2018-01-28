@@ -16,6 +16,7 @@ REQUIRED_ENV.forEach(function(el) {
 
 
 mongoose.connect(connect);
+>>>>>>> master
 
 var models = require('./models');
 require('./connections/twilioInput');
