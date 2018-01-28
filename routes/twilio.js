@@ -17,20 +17,22 @@ router.post('/receiveCall', (req, res) => {
     let dialogFlowResponded = false;
     //call dialogflow
     var request = app.textRequest(input, {
-        sessionId: sessionId
+        sessionId: req.body.From
     });
 
-    request.on('response', function(response) {
-        console.log(response);
-        let newResponse = response.result.fulfillment.speech;
-        let completed = !response.result.actionIncomplete;
+    request.on('response', function(resp) {
+        let newResponse = resp.result.fulfillment.speech;
+        let completed = !resp.result.actionIncomplete;
+        dialogFlowResponded = true;
     })
+
+    request.on('error', function(errer){
+        console.log(error);
+    })
+    request.end();
 
     while( !dialogFlowResponded ){
         console.log('\n waiting...');
-        request.on('error', function(errer){
-            console.log(error);
-        })
     }
 
     response.say(newResponse);
