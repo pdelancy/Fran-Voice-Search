@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var connect = process.env.MONGODB_URI;
 
-<<<<<<< HEAD
 var REQUIRED_ENV = "MONGODB_URI".split(" ");
 
 REQUIRED_ENV.forEach(function(el) {
@@ -18,23 +17,7 @@ REQUIRED_ENV.forEach(function(el) {
 
 mongoose.connect(connect);
 
-var models = require('./models');
 require('./connections/twilioInput');
-=======
-// var REQUIRED_ENV = "SECRET MONGODB_URI".split(" ");
-//
-// REQUIRED_ENV.forEach(function(el) {
-//   if (!process.env[el]){
-//     console.error("Missing required env var " + el);
-//     process.exit(1);
-//   }
-// });
-//
-//
-// mongoose.connect(connect);
-
-// var models = require('./models');
->>>>>>> 7e13cbfc2c1019af2879605bc4cd095cf4f3040d
 
 var routes = require('./routes/routes');
 var twilio = require('./routes/twilio');
