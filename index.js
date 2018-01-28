@@ -27,6 +27,7 @@ let timeAvailable = (places, dt) => {
     });
 };
 exports.Frans = function Frans (req, res) {
+
     console.log("line 28");
     let response = "Hi Luchenn and Paul";
     console.log(req.body);
