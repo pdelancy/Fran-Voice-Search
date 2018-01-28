@@ -16,9 +16,6 @@ REQUIRED_ENV.forEach(function(el) {
 
 
 mongoose.connect(connect);
-
-var models = require('./models');
-//require('./connections/twilioInput');
 var routes = require('./routes/routes');
 var twilio = require('./routes/twilio');
 var app = express();
