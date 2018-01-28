@@ -1,25 +1,30 @@
-var apiai = require('apiai');
+var apiai = require('apiai-promise');
 var app = apiai(process.env.API_AI_TOKEN);
-// var { Place } = require('../models/models');//MAKE SURE TO HAVE THE CORRECT ROUTE FOR MODELS FILE
-var twilioInput = function twilioInput(input, sessionId) {
+var returnConversation = {
+    continue: false,
+    response: ""
+};
+//var { Place } = require('../models/models');//MAKE SURE TO HAVE THE CORRECT ROUTE FOR MODELS FILE
+var twilioInput = function twilioInput(input, sessionId, object) {
     var request = app.textRequest(input, {
         sessionId: sessionId
-    });
-    request.on('response', function(response) {
+    }).then((response) => {
         console.log(response);
-        let speech = response.result.fulfillment.speech;
-        let complete = !response.result.actionIncomplete;
-        let newResponse = {
-          speech,
-          complete
-        }
-        console.log('newResponse', newResponse);
-        return newResponse;
+    }).catch(e => {
+        console.log(e);
     })
-    request.on('error', function(errer){
-        console.log(error);
-    })
-    request.end();
+    // request.on('response', function(response) {
+    //     console.log(response);
+    //     object.continue = !response.actionIncomplete;
+    //     object.response = response.result.fulfillment.speech;
+    //     console.log(returnConversation);//LET PAUL USE TWILIO RES.SEND(); AND END THE
+    // })
+    // request.on('error', function(error){
+    //     console.log(error);
+    // })
+    // request.end();
 };
 
-// twilioInput("Hiiiiiiiiiii!!!!", "10010");
+twilioInput("where do I get food?", "121212451212", returnConversation);
+twilioInput("today", "121212451212", returnConversation);
+twilioInput("civic center", "121212451212", returnConversation);
