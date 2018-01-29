@@ -59,7 +59,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3030;
 app.listen(port);
 console.log('Express started. Listening on port %s', port);
 
