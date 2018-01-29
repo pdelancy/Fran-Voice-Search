@@ -188,10 +188,8 @@ let timeAvailable = (places, dt) => {
     return things
 };
 const query = (body) => {
-    //console.log("line 28");
     let response = "Hi Luchenn and Paul";
     let params = body.result.parameters;
-    //console.log(body);
     let type;
     let dateTime;
     let location;
@@ -201,23 +199,22 @@ const query = (body) => {
     // else {
     //     location = (params.location["street-address"]) ? params.location["street-address"] : Object.values(params.location).join(", ");
     // }
-    //console.log(location);
+    console.log("Location:", location);
     intents.map(i => {
         if(body.result.metadata.intentName === i){
             type = i;
         }
     });
-    //console.log(type);
-    //console.log(params.date);
+    console.log(type);
+    console.log(params.date);
     dateTime = (type === "Rehab" || type === "Shelter") ? new Date(params.date) : new Date(params.date + "T" + params.time);
-    //console.log("line 40", dateTime);
-    // if(!location) return {smallTalk: true};
+    console.log("line 40", dateTime);
     return Place.find({
         type: type
     }).then(places => {
-        //console.log("line 44 in Place", places);
+        console.log("line 44 in Place", places);
         let thePlace = timeAvailable(places, dateTime);
-        //console.log("the Place", thePlace);
+        console.log("the Place", thePlace);
         let fromLocation = location + ", SanFrancisco, CA";
         // fromLocation = fromLocation.split(" ").join("+");
         return Promise.all(thePlace.map(tp => {
