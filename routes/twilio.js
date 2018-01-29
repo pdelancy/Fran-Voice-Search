@@ -60,9 +60,10 @@ router.post('/receiveCall', (req, res) => {
     console.log(req.body.Digits);
     if(req.body.Digits === '1'){
       response.dial(phoneNumber);
-    } else if(req.body.Digits === '2'){
-      response.dial("301-873-0062");
     }
+    // else if(req.body.Digits === '2'){
+    //     response.dial("301-873-0062");
+    // }
     phoneNumber = "";
     res.writeHead(200, { 'Content-Type': 'text/xml' });
     res.end(response.toString());
@@ -107,7 +108,7 @@ router.post('/receiveCall', (req, res) => {
             })
             if(place.phoneNumber){
               phoneNumber = place.phoneNumber;
-              response.say(`This service has a hotline, would you like me to connect you? To connect, press 1. To call Paul, press 2. To end the call, press 3.`);
+              response.say(`This service has a hotline, would you like me to connect you? To connect, press 1. To end the call, press 2.`); //To call Paul, press 2.
               const gather = response.gather({
                 input: 'dtmf',
                 timeout: 5,
@@ -223,7 +224,7 @@ const query = (body) => {
             let toLocation = tp.location.split(" ").join("+");
             //console.log(toLocation);
             return axios.get(`http://www.mapquestapi.com/directions/v2/route?key=${process.env.MAPQUEST_KEY}` +
-                    `&from=${fromLocation}&to=${toLocation}`)
+                    `&from=${fromLocation}&to=${toLocation}&routeType=pedestrian`)
                     .then(directions => {
                       //console.log(directions.data.route);
                         let dir = {
